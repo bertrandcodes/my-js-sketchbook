@@ -64,3 +64,5 @@ console.log(structuredCloneObj.obj == obj1.obj, "is clone equal?");
 
 obj1.reflect = obj1;
 console.log(obj1 == obj1.reflect, "circular?");
+
+// garbage collector is a background process in the JavaScript engine that monitors all objects and removes those that have become unreachable
