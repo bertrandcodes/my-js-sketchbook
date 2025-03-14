@@ -66,3 +66,50 @@ obj1.reflect = obj1;
 console.log(obj1 == obj1.reflect, "circular?");
 
 // garbage collector is a background process in the JavaScript engine that monitors all objects and removes those that have become unreachable
+
+let thisUser = {
+  firstName: "Ilya",
+  // sayHi() {
+  //   let arrow = () => alert(this.firstName);
+  //   arrow();
+  // },
+  sayHi: () => {
+    console.log(this.firstName);
+  },
+};
+
+thisUser.sayHi();
+
+let thisNewUser = {
+  firstName: "Todd",
+};
+
+thisNewUser.sayHi = thisUser.sayHi;
+
+thisNewUser.sayHi();
+
+const $button = document.getElementById("button");
+const $button2 = document.getElementById("button2");
+
+$button.addEventListener("click", () => {
+  console.log(this, "what is this 1");
+});
+
+$button2.addEventListener("click", function () {
+  console.log(this, "what is this 2");
+});
+
+const regObj = {
+  runMethod: function (fn) {
+    fn();
+  },
+};
+
+regObj.runMethod(function () {
+  console.log(
+    this,
+    "what is this here? if regObj, then addEventListener is not special..."
+  );
+});
+
+// This is cool. addEventListener is special because it is built to bind "this" within the passed in function (AS LONG AS IT'S NOT AN ARROW FUNCTION) to the element we call addEventListener to. runMethod is meant to be a replica of addEventListener, but it doesn't come with this special property and "this" ends up referring to the window object.
