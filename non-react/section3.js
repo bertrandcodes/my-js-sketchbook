@@ -207,3 +207,11 @@ console.log(
   weakMap,
   "objKey doesn't exists in weak map... well it does... but it won't be around after garbage collection!"
 );
+
+let objKey3 = { hey: "ho" };
+
+const weakSet = new WeakSet([objKey3]);
+
+objKey3 = null; // delete it
+
+console.log(weakSet, "weak set");
