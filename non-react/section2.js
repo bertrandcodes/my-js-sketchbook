@@ -74,7 +74,7 @@ let thisUser = {
   //   arrow();
   // },
   sayHi: () => {
-    console.log(this.firstName);
+    console.log(this.firstName, "try to say first name");
   },
 };
 
@@ -86,7 +86,7 @@ let thisNewUser = {
 
 thisNewUser.sayHi = thisUser.sayHi;
 
-thisNewUser.sayHi();
+thisNewUser.sayHi(); // undefined if sayHi is in an arrow function. This is because arrow functions ignore the rules of "this" bindings. With a regular function, the function is implicitly bound to what calls it. But arrow functions get the this context from the lexical scope of where it is defined. sayHi is defined in the global scope, so the this keyword becomes the global object.
 
 const $button = document.getElementById("button");
 const $button2 = document.getElementById("button2");
@@ -113,3 +113,60 @@ regObj.runMethod(function () {
 });
 
 // This is cool. addEventListener is special because it is built to bind "this" within the passed in function (AS LONG AS IT'S NOT AN ARROW FUNCTION) to the element we call addEventListener to. runMethod is meant to be a replica of addEventListener, but it doesn't come with this special property and "this" ends up referring to the window object.
+
+// How the new keyword works:
+
+function User(name) {
+  // this = {};  (implicitly)
+
+  // add properties to this
+  this.name = name;
+  this.isAdmin = false;
+
+  // return {} // if we were to uncomment out this, an empty object gets returned instead of the custom one. However if we return anything other than an object, the return is basically ignored.
+
+  // return this;  (implicitly)
+}
+
+console.log(User("Bert")); // this could work if inside User you added a line if(!new.target) return new User(name)
+
+const sampleArr = [["hi"]];
+
+console.log(sampleArr[0][2]?.[0], "out of range"); // out of range, but doesn't error out because we used ?
+
+// Symbols are the only other data type that can be an object's key
+// One main usecase for symbol is for adding properties to objects shared by other codebases. It guarantees that other people touching that object won't overwrite your property.
+
+// the global symbol registry lets you keep track of symbols:
+
+// read from the global registry (entire codebase has one registry)
+let id = Symbol.for("id"); // if the symbol did not exist, it is created
+
+// read it again (maybe from another part of the code)
+let idAgain = Symbol.for("id");
+
+// the same symbol
+console.log(id === idAgain); // true
+
+// symbols are unique, multiple of the "same" symbol can exist as separate object properties
+let lib = {
+  name: "ABC",
+};
+
+lib[Symbol("id")] = 123;
+lib[Symbol("id")] = 124; //Not changed
+
+console.log(lib); // has 2 Symbol(id) properties
+
+// JavaScript uses "system" symbols internally
+// Symbol.hasInstance
+// Symbol.isConcatSpreadable
+// Symbol.iterator
+// Symbol.toPrimitive
+
+// Symbol.for("name") -> gives you symbol
+// Symbol.keyFor(symbol) -> gives you value
+
+const testSymbol = Symbol.for("test");
+console.log(testSymbol, "testSymbol");
+console.log(Symbol.keyFor(testSymbol), "Symbol.keyFor(testSymbol)");
