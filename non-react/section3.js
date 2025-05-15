@@ -164,3 +164,23 @@ while (true) {
 } // This is another less common way of using iterators, but gives more control
 
 // There are iterables and array-like objs. These are different. Array.from() turns either of these into a real array.
+
+const map = new Map([
+  [2, 2],
+  [3, 4],
+  [{ objKey: 1 }, "whoa"],
+]); // instead of passing in an array of tuples, we can also do Object.entries(obj)
+
+// unlike objects, maps allow for any data type as keys, including objects
+// maps also preserve order in which values are inserted
+
+for (const key of map.values()) {
+  console.log(key);
+}
+
+for (let entry of map) {
+  console.log(entry, "this works");
+}
+
+let obj = Object.fromEntries(map); // this creates an obj from map
+console.log(obj, "obj from map");
