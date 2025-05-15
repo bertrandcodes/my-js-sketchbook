@@ -184,3 +184,26 @@ for (let entry of map) {
 
 let obj = Object.fromEntries(map); // this creates an obj from map
 console.log(obj, "obj from map");
+
+// Set and Map both have their own .forEach(value, valueAgain, set/map) - weird params, but they are to ensure consistency with the typical forEach method
+
+// WeakMap only takes objects as keys and they get garbage collected when the object key gets overwritten, unlike with map. It's good for data storage and caching. Weakset is the same.
+
+let objKey = { hey: "ho" };
+
+const strongMap = new Map([[objKey, 1]]);
+
+objKey = null; // delete it
+
+console.log(strongMap, "objKey still exists in here");
+
+let objKey2 = { hey: "ho" };
+
+const weakMap = new WeakMap([[objKey2, 1]]);
+
+objKey2 = null; // delete it
+
+console.log(
+  weakMap,
+  "objKey doesn't exists in weak map... well it does... but it won't be around after garbage collection!"
+);
