@@ -92,11 +92,11 @@ const $button = document.getElementById("button");
 const $button2 = document.getElementById("button2");
 
 $button.addEventListener("click", () => {
-  console.log(this, "what is this 1");
+  console.log(this, "global obj");
 });
 
 $button2.addEventListener("click", function () {
-  console.log(this, "what is this 2");
+  console.log(this, "this is bound to button correctly");
 });
 
 const regObj = {

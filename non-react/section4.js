@@ -80,3 +80,87 @@ console.log(
   seaTurtle.swims,
   "it can swim thanks to the optional second argument of Object.create()"
 );
+
+/* A typical class:
+
+class MyClass {
+  prop = value; // property
+
+  constructor(...) { // constructor
+    // ...
+  }
+
+  method(...) {} // method
+
+  get something(...) {} // getter method
+  set something(...) {} // setter method
+
+  [Symbol.iterator]() {} // method with computed name (symbol here)
+  // ...
+}
+
+Note that methods exist on the prototype, but properties exist on the class itself
+
+static properties and methods exist on the class as a whole rather than a specific class instance
+*/
+
+class CoffeeMaker {
+  _protectedField = "allowed for inherting classes to see"; // allowed for internal and inherting classes
+  #privateField = "can't see"; // private field - only for internal usage
+  publicField = "can see";
+  method() {
+    console.log("hi");
+  }
+}
+
+console.log(new CoffeeMaker().publicField, "we can only see this");
+
+class PowerArray extends Array {
+  isEmpty() {
+    return this.length === 0;
+  }
+
+  // built-in methods will use this as the constructor
+  static get [Symbol.species]() {
+    return Array;
+  }
+}
+
+let arr = new PowerArray(1, 2, 5, 10, 50);
+console.log(arr.isEmpty()); // false
+
+// filter creates new array using arr.constructor[Symbol.species] as constructor
+let filteredArr = arr.filter((item) => item >= 10);
+// filteredArr is not PowerArray, but Array
+
+// Mixin in OOP is a class that contains methods for other classes - since JavaScript doesn't allow multiple inheritances, we must implement them using mixins.
+// We are really just copying methods into a prototype
+
+// Mixin for logging functionality
+const LoggerMixin = {
+  log(message) {
+    console.log(`[${this.name}]: ${message}`);
+  },
+};
+
+// Mixin for validation functionality
+const ValidationMixin = {
+  validate() {
+    return this.name && this.name.length > 0;
+  },
+};
+
+// Class that uses the mixins
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+// Apply mixins to the User class
+Object.assign(User.prototype, LoggerMixin, ValidationMixin);
+
+// Now User instances have both logging and validation methods
+const user = new User("John");
+user.log("Hello!"); // [John]: Hello!
+console.log(user.validate()); // true
