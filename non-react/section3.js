@@ -214,4 +214,14 @@ const weakSet = new WeakSet([objKey3]);
 
 objKey3 = null; // delete it
 
-console.log(weakSet, "weak set");
+console.log(weakSet, "weak set"); // also shows obj for now, but it gets garbage collected later
+
+let first = 1;
+let second = 2; // semicolon is important here!
+[first, second] = [second, first];
+console.log(first, second, "should be swapped");
+
+const destructureObj = { hey: "ho" };
+const { hey: heyNow } = destructureObj;
+
+console.log(heyNow, "renaming from destructure");
