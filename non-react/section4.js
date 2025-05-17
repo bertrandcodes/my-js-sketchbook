@@ -164,3 +164,64 @@ Object.assign(User.prototype, LoggerMixin, ValidationMixin);
 const user = new User("John");
 user.log("Hello!"); // [John]: Hello!
 console.log(user.validate()); // true
+
+try {
+  // throw "can be string";
+  blahh();
+} catch (error) {
+  console.log(error); // catches reference error above
+}
+
+class MyError extends Error {
+  constructor(property) {
+    super(property);
+    this.name = "MyError";
+  }
+}
+
+try {
+  throw new MyError("age");
+} catch (error) {
+  console.error(error);
+}
+
+/*
+Promise.all(promises) - rejects on first error
+Promise.allSettled(promises) - return results for each promise
+Promise.race(promises) - returns first settled promise
+Promise.any(promises) - returns the result of the first successful promise
+
+Promisification is the act of turning a fn that accepts callbacks into one that returns a promise. We can make a fn called promisify that does this.
+*/
+
+async function f() {
+  // all async fns return a promise
+}
+
+console.log(f()); // Promise {<fulfilled>: undefined}, even though it was empty
+
+function* generate() {
+  yield 1;
+  yield 2;
+  return 3;
+}
+
+const generator = generate();
+
+generator.next();
+generator.next(); // {value: 2, done: false}
+console.log(generator.next().value, "gives 3, the return value");
+
+// we can also pass from outside into yield... something that normal functions can't do
+function* gen() {
+  // Pass a question to the outer code and wait for an answer
+  let result = yield "2 + 2 = ?"; // (*)
+
+  console.log(result);
+}
+
+let generator2 = gen();
+
+let question = generator2.next().value; // <-- yield returns the value
+
+generator2.next(4); // --> pass the result into the generator, the result of yield more specifically
