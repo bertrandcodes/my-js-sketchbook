@@ -12,7 +12,7 @@ console.log(
 
   When we change variables, we are really changing a property on an object. Btw this object exists theoretically so we can't actually see it.
 
-  All functions have a hidden property named [[Environment]] which keeps reference to the lexical environment where the function was created. This is how closures are able to work. In JavaScript, it's correct to say that all functions are closures.
+  All functions have a hidden property named [[Environment]]([[]] syntax means internal slots, which are not directly accessible in JavaScript code) which keeps reference to the lexical environment where the function was created. This is how closures are able to work. In JavaScript, it's correct to say that all functions are closures.
   */
 
 for (var i = 0; i < 3; i++) {
