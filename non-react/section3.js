@@ -36,7 +36,6 @@ const randomWithPrimitive2 = {
 // alert(randomWithPrimitive2); // remember this calls the default toString which exists on every object. That method always returns "[object Object]". The default valueOf method returns the equivalent object.
 
 /*
-
 If not, we look at the context for a "hint", to see whether coersion to a string or to a number is more appropriate.
 
 For example, if we are using alert(obj) we probably want to output a string, but if we are using arithmetics we probably want a number.

@@ -35,7 +35,7 @@ function mul(a, b) {
   return a * b;
 }
 
-let double = mul.bind(null, 2);
+let double = mul.bind(null, 2); // this is called a partial function
 
 console.log(double(3)); // = mul(2, 3) = 6
 console.log(double(4)); // = mul(2, 4) = 8
@@ -120,7 +120,7 @@ class PowerArray extends Array {
     return this.length === 0;
   }
 
-  // built-in methods will use this as the constructor
+  // if we add this, built-in methods will use this as the constructor
   static get [Symbol.species]() {
     return Array;
   }
