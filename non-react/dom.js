@@ -1,5 +1,7 @@
 console.log(window); // we can use it as a global object - window.sayHi()
 
+queueMicrotask(() => console.log("this should run at the end"));
+
 // DOM is accessible through the document object (window.document). We can change or create anything on the page using it.
 // window.navigator includes things like information about the browser and window.location allows you to go to a new url. These are part of the BOM (Browser Object Model).
 
